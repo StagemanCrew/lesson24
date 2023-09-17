@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Gabriela:regular" rel="stylesheet" />
+    <style>
+        body{
+            font-family: 'Gabriela';
+        }
+    </style>
+    <title>task-7</title>
+</head>
+<body>
+    <h3>
+        Користувач може змінювати колір фону, що вибирає користувач з використанням -input type="color"-. Зберігати цей колір і відновлювати при наступному відкритті. Також зберігати і відображати кількість змін протягом одного сеансу.
+    </h3>
+
+    <input type="color" id="colorPicker">
+    <p>Кількість змін кольору: <span id="changeCount">0</span></p>
+
+    <script>
+
+        let colorPicker = document.getElementById('colorPicker')
+        let changeCount = document.getElementById('changeCount')
+
+        function updateChangeCount(count) {
+            changeCount.textContent = count
+        }
+
+        // Зміна фонового кольору
+        function changeBackgroundColor() {
+            const newColor = colorPicker.value
+            document.body.style.backgroundColor = newColor
+
+            // Зберігаємо новий колір у локальному сховищі
+            localStorage.setItem('backgroundColor', newColor)
+
+            // Кількість змін з локального сховища
+            let changeCountValue = parseInt(localStorage.getItem('changeCount')) || 0
+            // Збільшуємо і зберігаємо
+            changeCountValue++
+            localStorage.setItem('changeCount', changeCountValue)
+            updateChangeCount(changeCountValue)
+        }
+
+        // Отримуємо останній збережений колір фону
+        const lastBackgroundColor = localStorage.getItem('backgroundColor')
+        if (lastBackgroundColor) {
+            document.body.style.backgroundColor = lastBackgroundColor
+        }
+
+        // Додаємо обробник подій для вибору нового кольору
+        colorPicker.addEventListener('change', changeBackgroundColor)
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Gabriela:regular" rel="stylesheet" />
+    <style>
+        body{
+            font-family: 'Gabriela';
+        }
+        li{
+            font-weight: 600;
+        }
+    </style>
+    <title>task-4</title>
+</head>
+<body>
+    <h3>
+        Дано масив студентів (піб, курс, факультет). Підрахувати кількість різних факультетів, та кількість студентів кожного з курсів. 
+    </h3>
+
+    <script>
+
+        // Заданий масив студентів (піб, курс, факультет)
+        let students = [
+        { name: "Студент 1", course: 1, faculty: "Факультет 1" },
+        { name: "Студент 2", course: 2, faculty: "Факультет 2" },
+        { name: "Студент 3", course: 1, faculty: "Факультет 3" },
+        { name: "Студент 4", course: 3, faculty: "Факультет 2" },
+        { name: "Студент 5", course: 2, faculty: "Факультет 1" },
+        { name: "Студент 6", course: 1, faculty: "Факультет 2" },
+        ]
+        document.write("<h3>Mасив студентів:</h3>")
+        for (const student of students) {
+            document.write(`<li>Піб: ${student.name}, Курс: ${student.course}, Факультет: ${student.faculty}</li>`)
+        }
+
+        let courseCount = {}
+        let facultyCount = {}
+
+        // Перебираємо кожного студента
+        for (const student of students) {
+            let course = student.course
+            let faculty = student.faculty
+            if (courseCount[course]) {
+                courseCount[course]++
+            } else {
+                courseCount[course] = 1
+            }
+            if (!facultyCount[faculty]) {
+                facultyCount[faculty] = true
+            }
+        }
+
+        // Кількість різних факультетів
+        let facultyCountResult = Object.keys(facultyCount).length
+
+        // Виводимо результати
+        document.write("<h4>Кількість різних факультетів: " + facultyCountResult + "</h4>")
+        document.write("<h4>Кількість студентів на кожному курсі:</h4>")
+        for (const course in courseCount) {
+            document.write(`<li>Курс ${course}: ${courseCount[course]} студент(ів)</li>`)
+        }
+
+    </script>
+</body>
+</html>

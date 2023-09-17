@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Gabriela:regular" rel="stylesheet" />
+    <style>
+        body{
+            font-family: 'Gabriela';
+        }
+    </style>
+    <link rel="stylesheet" href="css/style.css">
+    <title>task-8</title>
+</head>
+<body>
+    <h3>
+        Зберігати у пам’яті список справ, які користувачу треба виконати (зберігати у localStorage). Періодично випадковим чином вибирати якусь з справ і виводити користувачу (з використанням confirm). Якщо користувач натискає на «Ок», то видаляти цю задачу.
+    </h3>
+
+    <h2>Список справ:</h2>
+    <ul id="taskList">
+        <!-- <li>Прибрати в кімнаті</li>
+        <li>Сходити за хлібом</li>
+        <li>Зробити Дз з курсу по JS</li>
+        <li>Подивитись нову лекцію</li>
+        <li>Відпочинок &#x1f602</li> -->
+    </ul>
+
+    <script>
+
+        // Отримуємо елементи з DOM
+        let taskList = document.getElementById('taskList')
+
+        // Функція для збереження списку справ у локальному сховищі
+        function saveTasksToLocalStorage(tasks) {
+            localStorage.setItem('tasks', JSON.stringify(tasks))
+        }
+
+        // Отримання списку справ з локального сховища
+        function getTasksFromLocalStorage() {
+            let tasksString = localStorage.getItem('tasks')
+            return JSON.parse(tasksString) || []
+        }
+
+        // Виведення всіх справ
+        function displayTasks(tasks) {
+            taskList.innerHTML = '' // Очищаємо поточний список
+
+            for (const task of tasks) {
+                let taskItem = document.createElement('li')
+                taskItem.textContent = task
+                taskList.appendChild(taskItem)
+            }
+        }
+
+        // Випадковий вибор справи
+        function showRandomTask() {
+            let tasks = getTasksFromLocalStorage()
+            if (tasks.length === 0) {
+                alert("Список справ порожній!")
+                return
+            }
+
+            let randomIndex = Math.floor(Math.random() * tasks.length)
+            let randomTask = tasks[randomIndex]
+            let confirmed = confirm(`Виконати наступну справу?\n\n${randomTask}`)
+            if (confirmed) {
+                tasks.splice(randomIndex, 1) // Видаляємо справу
+                saveTasksToLocalStorage(tasks)
+                displayTasks(tasks)
+            }
+        }
+
+        // Випадкові справи через певний інтервал часу
+        function showRandomTaskPeriodically() {
+            setTimeout(showRandomTask, 3000) // Показуємо справу кожні 5 секунд
+        }
+
+        // Виведення випадкової справи
+        document.addEventListener('DOMContentLoaded', () => {
+            let tasks = getTasksFromLocalStorage()
+            displayTasks(tasks)
+
+            let showTaskButton = document.createElement('button')
+            showTaskButton.textContent = 'Показати випадкову справу'
+            showTaskButton.addEventListener('click', showRandomTask)
+            document.body.appendChild(showTaskButton)
+
+            // Додаємо можливість показу випадкової справи через інтервал
+            showRandomTaskPeriodically()
+        })
+
+        // Додавання нової справи
+        let addTaskButton = document.createElement('button')
+        addTaskButton.textContent = 'Додати справу'
+        addTaskButton.addEventListener('click', () => {
+            let newTask = prompt('Введіть нову справу: ')
+            if (newTask) {
+                let tasks = getTasksFromLocalStorage()
+                tasks.push(newTask)
+                saveTasksToLocalStorage(tasks)
+                displayTasks(tasks)
+            }
+        })
+        document.body.appendChild(addTaskButton)
+
+    </script>
+
+</body>
+</html>

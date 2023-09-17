@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Gabriela:regular" rel="stylesheet" />
+    <style>
+        body{
+            font-family: 'Gabriela';
+        }
+    </style>
+    <title>task-5</title>
+</head>
+<body>
+    <h3>
+        Дано масив показів температур. Підрахувати кількість входжень кожного із показів let temperatures = [12.4, 24.9, 10.6, 12.4, 24.9, 12.4, 10.6, 11.9]. Заокруглити вверх значення та підрахувати кількість різних показів.
+    </h3>
+
+    <script>
+
+        // Масив показів температур
+        let temperatures = [12.4, 24.9, 10.6, 12.4, 24.9, 12.4, 10.6, 11.9]
+        document.write(`<h3>Покази температур: ${temperatures.join(', ')}</h3><hr>`)
+
+        let temperatureCount = {}
+
+        // Заокруглюємо значення температур вверх
+        temperatures = temperatures.map(Math.ceil)
+        document.write(`<h3>Заокруглені значення температур: ${temperatures.join(', ')}</h3><hr>`)
+
+        // Перебираємо кожний показ
+        for (const temperature of temperatures) {
+            if (temperatureCount[temperature]) {
+                temperatureCount[temperature]++
+            } else {
+                temperatureCount[temperature] = 1
+            }
+        }
+
+        // Кількість різних показів
+        let uniqueTemperaturesCount = Object.keys(temperatureCount).length
+
+        // Виводимо результати
+        document.write("<h4>Кількість входжень кожного показу:</h4>")
+        for (const temperature in temperatureCount) {
+            document.write(`<h4>Показ ${temperature}: ${temperatureCount[temperature]}</h4>`)
+        }
+        document.write(`<hr><h4>Кількість різних показів: ${uniqueTemperaturesCount}</h4><hr>`)
+
+    </script>
+</body>
+</html>

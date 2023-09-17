@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Gabriela:regular" rel="stylesheet" />
+    <style>
+        body{
+            font-family: 'Gabriela';
+        }
+    </style>
+    <title>task-1</title>
+</head>
+<body>
+    <h3>
+        Дано список з віком учнів. Підрахувати скільки разів кожне значення зустрічається у списку і максимальне.
+    </h3>
+
+    <script>
+
+        // Список з віком учнів
+        let ages = [15, 15, 18, 16, 17, 18, 19, 15, 18, 20, 16, 17, 18]
+        document.write(`<h3>Список з віком учнів: ${ages.join(', ')}</h3>`)
+
+        let ageCount = {}
+        let maxAge = 0
+        let maxAgeCount = 0
+
+        // Проходимося по списку
+        for (const age of ages) {
+            if (ageCount[age]) {
+                ageCount[age]++
+            } else {
+                ageCount[age] = 1
+            }
+
+            // Перевіряємо, чи цей вік максимальний
+            if (ageCount[age] > maxAgeCount) {
+                maxAgeCount = ageCount[age]
+                maxAge = age
+            }
+        }
+
+        // Виводимо результати
+        document.write(`<hr><h3>Кількість разів, зустрічається у списку:</h3>`)
+        for (const age in ageCount) {
+            document.write(`<h3>${age} років: ${ageCount[age]}</h3>`)
+        }
+        document.write(`<hr><h3>Максимально зустрічається у списку - ${maxAge} років, кількість разів: ${maxAgeCount}</h3><hr>`)
+
+    </script>
+</body>
+</html>

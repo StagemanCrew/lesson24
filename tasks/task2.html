@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Gabriela:regular" rel="stylesheet" />
+    <style>
+        body{
+            font-family: 'Gabriela';
+        }
+        li{
+            font-size: 16px;
+            font-weight: 600;
+        }
+    </style>
+    <title>task-2</title>
+</head>
+<body>
+    <h3>
+        Дано масив книг (назва, рік видання, автор). Підрахувати кількість книг для кожного автора.
+    </h3>
+
+    <script>
+
+        // Заданий масив книг
+        let books = [
+        { title: "Книга 1", year: 2020, author: "Автор 1" },
+        { title: "Книга 2", year: 2018, author: "Автор 2" },
+        { title: "Книга 3", year: 2021, author: "Автор 1" },
+        { title: "Книга 4", year: 2019, author: "Автор 3" },
+        { title: "Книга 5", year: 2022, author: "Автор 2" },
+        { title: "Книга 6", year: 2020, author: "Автор 1" },
+        ]
+        document.write("<h3>Список книг:</h3>")
+        for (const book of books) {
+            document.write(`<li>Назва: ${book.title}, Рік видання: ${book.year}, Автор: ${book.author}</li>`)
+        }
+
+        // Для збереження кількості
+        let authorCount = {}
+
+        // Перебираємо кожну книгу
+        for (const book of books) {
+            const author = book.author
+            if (authorCount[author]) {
+                authorCount[author]++
+            } else {
+                authorCount[author] = 1
+            }
+        }
+
+        // Виводимо результати
+        document.write("<h3>Кількість книг для кожного автора:</h3>")
+        document.write("<ul>")
+            for (const author in authorCount) {
+                document.write(`<li>${author}: ${authorCount[author]}</li>`)
+            }
+        document.write("</ul>")
+
+    </script>
+</body>
+</html>
